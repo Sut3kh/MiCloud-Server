@@ -1,0 +1,10 @@
+[Unit]
+Description=Backups Folder
+
+[Mount]
+What=/dev/mapper/securebackups
+Where=/backups
+
+# NOTE: This should not have an install section because it should not run on
+# boot (as the dm-crypt requires manual interaction).
+# This unit exists to act as a dependency for backup scripts.

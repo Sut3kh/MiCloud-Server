@@ -1,0 +1,10 @@
+[Unit]
+Description=Dropbox Client
+OnFailure=alert-on-failure@%i.service
+
+[Service]
+EnvironmentFile=/etc/micloud-server.env
+ExecStart=/usr/bin/sudo -u "$MICLOUD_DROPBOX_USER" "/home/$MICLOUD_DROPBOX_USER/.dropbox-dist/dropboxd"
+
+[Install]
+WantedBy=multi-user.target

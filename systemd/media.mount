@@ -1,0 +1,10 @@
+[Unit]
+Description=Media Folder
+Before=docker.service
+
+[Mount]
+What=/dev/sdb
+Where=/media
+
+[Install]
+WantedBy=basic.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Take a snapshot of all backups
+Requires=backups.mount
+OnFailure=alert-on-failure@%i.service
+
+[Service]
+EnvironmentFile=/etc/micloud-server.env
+ExecStart=/usr/bin/rsync \
+  --recursive \
+  --archive \
+  --update \
+  --exclude='weekly' \
+  "/backups/" \
+  /backups/weekly/
+
+# NOTE: This should not have an [Install] section as it should be triggered by
+# the timer.

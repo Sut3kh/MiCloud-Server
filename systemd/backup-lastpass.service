@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the lastpass backup script
+Requires=backups.mount
+OnFailure=alert-on-failure@%i.service
+
+[Service]
+EnvironmentFile=/etc/micloud-server.env
+ExecStart=/bin/bash "$MICLOUD_PATH/scripts/backups/lastpass.sh"
+
+# NOTE: This should not have an [Install] section as it should be triggered by
+# the timer.

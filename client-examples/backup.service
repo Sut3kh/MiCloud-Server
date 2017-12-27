@@ -1,0 +1,13 @@
+[Unit]
+Description=Backup to MiCloud
+
+[Service]
+ExecStart=/usr/bin/rsync \
+  --recursive \
+  --archive \
+  --update \
+  /home/chris /www \
+  micloud:/backups/ChristOS
+
+# NOTE: This should not have an [Install] section as it should be triggered by
+# the timer.

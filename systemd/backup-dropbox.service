@@ -1,0 +1,16 @@
+[Unit]
+Description=Backup the dropbox folder
+Requires=backups.mount, dropbox.service
+OnFailure=alert-on-failure@%i.service
+
+[Service]
+EnvironmentFile=/etc/micloud-server.env
+ExecStart=/usr/bin/rsync \
+  --recursive \
+  --archive \
+  --update \
+  "/home/$MICLOUD_DROPBOX_USER/Dropbox" \
+  /backups/
+
+# NOTE: This should not have an [Install] section as it should be triggered by
+# the timer.
