@@ -15,9 +15,19 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Disable SELinux. TODO: Figure out proper systemd perms.
+echo "Disabling SELinux (NOTE: If this script fails, make sure you run 'sudo setenforce 1'!)"
+setenforce 0
+
 # Install our systemd units.
 echo "Installing systemd units"
-for item in "$ROOTDIR"/*; do
+
+# Systemd doesn't like enabling unit templates anymore...
+ln -sf "$ROOTDIR"/systemd/alert-on-failure@.service /etc/systemd/system/alert-on-failure@.service
+
+# Install everything else normally.
+shopt -s extglob
+for item in "$ROOTDIR"/systemd/!(alert-on-failure@.service); do
   # Systemd has started to output nonsense warnings about missing [Install]
   # sections (even for the ones that do have one) so we need to shut it up.
   echo "Quietly enabling $item"
@@ -26,11 +36,15 @@ done
 systemctl daemon-reload
 
 # Start/restart systemd timers.
-for item in /etc/systemd/ww/*.timer; do
+for item in "$ROOTDIR"/systemd/*.timer; do
   # NOTE: Re-enabling an existing timer will kill it so it must be restarted.
   systemctl stop $(basename "$item")
   systemctl start $(basename "$item")
 done
+
+# Re-enable SELinux.
+echo "Re-enabling SELinux"
+setenforce 1
 
 # Create envfile with path.
 echo "Installing MiCloud config"
