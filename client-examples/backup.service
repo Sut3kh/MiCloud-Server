@@ -3,8 +3,17 @@ Description=Backup to MiCloud
 
 [Service]
 ExecStart=/usr/bin/rsync \
+  --compress \
+  --delete-after \
+  --devices \
+  --hard-links \
+  --links \
+  --numeric-ids \
   --recursive \
-  --archive \
+  --sparse \
+  --specials \
+  --stats \
+  --times \
   --update \
   /home/chris /www \
   micloud:/backups/ChristOS
