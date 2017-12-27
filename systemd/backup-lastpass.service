@@ -5,7 +5,7 @@ OnFailure=alert-on-failure@%i.service
 
 [Service]
 EnvironmentFile=/etc/micloud-server.env
-ExecStart=/bin/bash "$MICLOUD_PATH/scripts/backups/lastpass.sh"
+ExecStart=/bin/bash ${MICLOUD_PATH}/scripts/backup-lastpass.sh
 
 # NOTE: This should not have an [Install] section as it should be triggered by
 # the timer.

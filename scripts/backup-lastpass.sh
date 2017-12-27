@@ -26,8 +26,8 @@ fi
 
 # Alert the message if there is one.
 if [ ! -z "$MESSAGE" ]; then
-  echo "$MESSAGE" 1>&2;
-  bash "$MICLOUD_PATH/scripts/alert.sh '$MESSAGE'"
+  echo "$MESSAGE"
+  bash -c "$MICLOUD_PATH/scripts/alert.sh '$MESSAGE'"
 fi
 
 # NOTE: Always exit cleanly so the alert-on-failure unit is not also triggered.

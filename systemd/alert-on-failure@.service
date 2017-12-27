@@ -6,7 +6,7 @@ After=network-online.target
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/micloud-server.env
-ExecStart=/bin/bash "$MICLOUD_PATH/scripts/alert.sh \"Warning systemd service '%i' Failed!\""
+ExecStart=/bin/bash ${MICLOUD_PATH}/scripts/alert.sh "Warning systemd service '%i' Failed!"
 
 [Install]
 WantedBy=basic.target
