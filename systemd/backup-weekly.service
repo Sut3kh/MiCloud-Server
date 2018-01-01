@@ -5,13 +5,14 @@ OnFailure=alert-on-failure@%i.service
 
 [Service]
 EnvironmentFile=/etc/micloud-server.env
-ExecStart=/usr/bin/rsync \
+ExecStart=/bin/bash -c "/usr/bin/rsync \
   --recursive \
   --archive \
   --update \
-  --exclude='weekly' \
-  "/backups/" \
-  /backups/weekly/
+  --exclude=weekly \
+  --exclude=lost+found \
+  /backups/ \
+  /backups/weekly/"
 
 # NOTE: This should not have an [Install] section as it should be triggered by
 # the timer.
