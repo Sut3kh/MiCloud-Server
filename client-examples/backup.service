@@ -15,6 +15,7 @@ ExecStart=/usr/bin/rsync \
   --stats \
   --times \
   --update \
+  --exclude=.cache \
   /home/chris /www \
   micloud:/backups/ChristOS
 
