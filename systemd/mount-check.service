@@ -1,0 +1,6 @@
+[Unit]
+Description=Check /backups is mounted
+OnFailure=alert-on-failure@%i.service
+
+[Service]
+ExecStart=/bin/bash -c "mount | grep "on /backups type" -q"
