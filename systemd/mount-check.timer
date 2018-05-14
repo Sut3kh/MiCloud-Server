@@ -1,0 +1,9 @@
+[Unit]
+Description=Check /shared mount every 30 minutes
+
+[Timer]
+OnCalendar=*:30
+Persistent=true
+
+[Install]
+WantedBy=timers.target
